@@ -6,11 +6,13 @@ class CharacterModel extends CharacterEntity {
     required String name,
     required String status,
     required String species,
+    required String image,
   }) : super(
           id: id,
           name: name,
           status: status,
           species: species,
+          image: image,
         );
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,7 @@ class CharacterModel extends CharacterEntity {
       name: json['name'],
       status: json['status'],
       species: json['species'],
+      image: json['image'],
     );
   }
 }
