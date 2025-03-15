@@ -4,12 +4,14 @@ class CharacterEntity {
   final String status;
   final String species;
   final String image;
+  bool favorite;
 
-  const CharacterEntity({
+  CharacterEntity({
     required this.id,
     required this.name,
     required this.status,
     required this.species,
     required this.image,
+    this.favorite = false,
   });
 }
