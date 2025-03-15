@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:effective_mobile/features/character/data/models/character_model.dart';
 import 'package:effective_mobile/features/character/domain/entities/character_entity.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_local_db_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_server_usecase.dart';
