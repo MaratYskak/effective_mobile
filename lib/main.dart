@@ -1,6 +1,7 @@
 import 'package:effective_mobile/features/app/home/home_page.dart';
 import 'package:effective_mobile/features/app/theme/style.dart';
 import 'package:effective_mobile/features/character/presentation/cubits/characters/character_cubit.dart';
+import 'package:effective_mobile/features/character/presentation/cubits/favorites/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'main_injection_container.dart' as di;
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
             ..fetchCharacters()
             ..updateDB(),
         ),
+        BlocProvider(create: (context) => di.sl<FavoritesCubit>()..fetchCharacters()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

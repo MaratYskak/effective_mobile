@@ -5,8 +5,10 @@ import 'package:effective_mobile/features/character/data/models/character_model.
 import 'package:effective_mobile/features/character/domain/entities/character_entity.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_local_db_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_server_usecase.dart';
+import 'package:effective_mobile/features/character/domain/usecases/get_favorites_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/toggle_favorite_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/update_db_usecase.dart';
+import 'package:effective_mobile/features/character/presentation/cubits/favorites/favorites_cubit.dart';
 import 'package:equatable/equatable.dart';
 
 part 'character_state.dart';
@@ -16,12 +18,14 @@ class CharacterCubit extends Cubit<CharacterState> {
   final GetCharactersFromServerUsecase getCharactersFromServerUsecase;
   final UpdateDbUsecase updateDbUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
+  // final GetFavoritesUsecase getFavoritesUsecase;
 
   CharacterCubit({
     required this.getCharactersFromLocalDbUsecase,
     required this.getCharactersFromServerUsecase,
     required this.updateDbUsecase,
     required this.toggleFavoriteUsecase,
+    // required this.getFavoritesUsecase,
   }) : super(CharacterInitial());
 
   Future<void> fetchCharacters() async {
@@ -60,12 +64,6 @@ class CharacterCubit extends Cubit<CharacterState> {
   }
 
   Future<void> toggleFavorite({required int characterId, required bool isFavorite}) async {
-    // print('isFavorite');
-    // print(isFavorite);
-    // await toggleFavoriteUsecase.call(characterId, isFavorite);
-    // final localCharacters = await getCharactersFromLocalDbUsecase.call();
-    // emit(CharacterLoaded(localCharacters));
-
     await toggleFavoriteUsecase.call(characterId, isFavorite);
 
     // Обновляем список персонажей в состоянии
@@ -79,5 +77,6 @@ class CharacterCubit extends Cubit<CharacterState> {
     }).toList();
 
     emit(CharacterLoaded(updatedCharacters));
+    // getFavoritesUsecase.call();
   }
 }

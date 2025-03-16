@@ -1,4 +1,5 @@
 import 'package:effective_mobile/features/character/presentation/pages/characters_screen.dart';
+import 'package:effective_mobile/features/character/presentation/pages/favorites_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,9 +15,9 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _screens = [
     CharactersScreen(),
     // Center(child: Text('CharactersScreen')),
-    Center(child: Text('FavoritesScreen')),
+    // Center(child: Text('FavoritesScreen')),
 
-    // FavoritesScreen(),
+    FavoritesScreen(),
   ];
 
   @override

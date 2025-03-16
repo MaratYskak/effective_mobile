@@ -17,6 +17,17 @@ class CharacterLocalDataSourceImpl implements CharacterLocalDataSource {
   }
 
   @override
+  Future<List<CharacterEntity>> getFavorites() async {
+    final List<Map<String, dynamic>> maps = await db.query(
+      'characters',
+      where: 'favorite = ?',
+      whereArgs: [1], // 1 означает true
+    );
+
+    return maps.map((map) => CharacterModel.fromJson(map)).toList();
+  }
+
+  @override
   Future<void> updateDB(List<CharacterEntity> characters) async {
     final batch = db.batch();
 

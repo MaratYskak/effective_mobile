@@ -6,9 +6,11 @@ import 'package:effective_mobile/features/character/data/repository/character_re
 import 'package:effective_mobile/features/character/domain/repository/character_repository.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_local_db_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_server_usecase.dart';
+import 'package:effective_mobile/features/character/domain/usecases/get_favorites_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/toggle_favorite_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/update_db_usecase.dart';
 import 'package:effective_mobile/features/character/presentation/cubits/characters/character_cubit.dart';
+import 'package:effective_mobile/features/character/presentation/cubits/favorites/favorites_cubit.dart';
 import 'package:effective_mobile/main_injection_container.dart';
 
 Future<void> characterInjectionContainer() async {
@@ -19,6 +21,12 @@ Future<void> characterInjectionContainer() async {
         getCharactersFromServerUsecase: sl.call(),
         updateDbUsecase: sl.call(),
         toggleFavoriteUsecase: sl.call(),
+        // getFavoritesUsecase: sl.call(),
+      ));
+
+  sl.registerFactory<FavoritesCubit>(() => FavoritesCubit(
+        getFavoritesUsecase: sl.call(),
+        toggleFavoriteUsecase: sl.call(),
       ));
 
   // * USE CASES INJECTION
@@ -28,6 +36,8 @@ Future<void> characterInjectionContainer() async {
   sl.registerLazySingleton<GetCharactersFromServerUsecase>(() => GetCharactersFromServerUsecase(repository: sl.call()));
   sl.registerLazySingleton<UpdateDbUsecase>(() => UpdateDbUsecase(repository: sl.call()));
   sl.registerLazySingleton<ToggleFavoriteUsecase>(() => ToggleFavoriteUsecase(sl.call()));
+
+  sl.registerLazySingleton<GetFavoritesUsecase>(() => GetFavoritesUsecase(repository: sl.call()));
 
   // * REPOSITORY & DATA SOURCES INJECTION
 
