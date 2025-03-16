@@ -17,4 +17,8 @@ class CharacterRepositoryImpl implements CharacterRepository {
 
   @override
   updateDB(List<CharacterEntity> list) => localDataSource.updateDB(list);
+
+  @override
+  Future<void> toggleFavorite(int characterId, bool isFavorite) =>
+      localDataSource.toggleFavorite(characterId, isFavorite);
 }

@@ -4,4 +4,5 @@ abstract class CharacterRepository {
   Future<List<CharacterEntity>> getCharactersFromServer();
   Future<List<CharacterEntity>> getCharactersFromLocalDB();
   Future<void> updateDB(List<CharacterEntity> list);
+  Future<void> toggleFavorite(int characterId, bool isFavorite);
 }

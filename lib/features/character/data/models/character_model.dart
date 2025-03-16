@@ -7,7 +7,7 @@ class CharacterModel extends CharacterEntity {
     required String status,
     required String species,
     required String image,
-    favorite = false,
+    bool favorite = false,
   }) : super(
           id: id,
           name: name,
@@ -24,6 +24,8 @@ class CharacterModel extends CharacterEntity {
       status: json['status'],
       species: json['species'],
       image: json['image'],
+      // favorite: json['favorite'] ?? false,
+      favorite: (json['favorite'] as int?) == 1,
     );
   }
 
