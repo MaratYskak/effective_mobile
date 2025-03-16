@@ -18,28 +18,25 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   // }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('favorites')),
-      body: BlocBuilder<FavoritesCubit, FavoritesState>(
-        builder: (context, state) {
-          if (state is FavoritesLoaded) {
-            return ListView.builder(
-              itemCount: state.characters.length,
-              itemBuilder: (context, index) {
-                final character = state.characters[index];
-                return CharacterCard(character: character);
-              },
-            );
-          }
-          if (state is FavoritesLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is FavoritesEmpty) {
-            return const Center(child: Text('empty'));
-          }
-          return const Center(child: Text('Failed to load characters'));
-        },
-      ),
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
+      builder: (context, state) {
+        if (state is FavoritesLoaded) {
+          return ListView.builder(
+            itemCount: state.characters.length,
+            itemBuilder: (context, index) {
+              final character = state.characters[index];
+              return CharacterCard(character: character);
+            },
+          );
+        }
+        if (state is FavoritesLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is FavoritesEmpty) {
+          return const Center(child: Text('empty'));
+        }
+        return const Center(child: Text('Failed to load characters'));
+      },
     );
   }
 }
