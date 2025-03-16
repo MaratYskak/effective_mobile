@@ -5,10 +5,8 @@ import 'package:effective_mobile/features/character/data/models/character_model.
 import 'package:effective_mobile/features/character/domain/entities/character_entity.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_local_db_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/get_characters_from_server_usecase.dart';
-import 'package:effective_mobile/features/character/domain/usecases/get_favorites_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/toggle_favorite_usecase.dart';
 import 'package:effective_mobile/features/character/domain/usecases/update_db_usecase.dart';
-import 'package:effective_mobile/features/character/presentation/cubits/favorites/favorites_cubit.dart';
 import 'package:equatable/equatable.dart';
 
 part 'character_state.dart';
@@ -18,14 +16,12 @@ class CharacterCubit extends Cubit<CharacterState> {
   final GetCharactersFromServerUsecase getCharactersFromServerUsecase;
   final UpdateDbUsecase updateDbUsecase;
   final ToggleFavoriteUsecase toggleFavoriteUsecase;
-  // final GetFavoritesUsecase getFavoritesUsecase;
 
   CharacterCubit({
     required this.getCharactersFromLocalDbUsecase,
     required this.getCharactersFromServerUsecase,
     required this.updateDbUsecase,
     required this.toggleFavoriteUsecase,
-    // required this.getFavoritesUsecase,
   }) : super(CharacterInitial());
 
   Future<void> fetchCharacters() async {
@@ -37,7 +33,6 @@ class CharacterCubit extends Cubit<CharacterState> {
       } else {
         final remoteCharacters = await getCharactersFromServerUsecase.call();
         await updateDbUsecase.call(remoteCharacters);
-        // emit(CharacterLoaded(remoteCharacters));
       }
     } on SocketException {
       emit(CharacterError('No Internet connection'));
@@ -51,14 +46,10 @@ class CharacterCubit extends Cubit<CharacterState> {
       final remoteCharacters = await getCharactersFromServerUsecase.call();
       await updateDbUsecase.call(remoteCharacters);
       final localCharacters = await getCharactersFromLocalDbUsecase.call();
-      print('localCharacters[0].name');
-      print(localCharacters[0].name);
       emit(CharacterLoaded(localCharacters));
     } on SocketException {
-      print('No Internet connection');
       emit(CharacterError('No Internet connection'));
     } catch (e) {
-      print('Failed to update database: $e');
       emit(CharacterError('Failed to update database: $e'));
     }
   }
@@ -77,6 +68,5 @@ class CharacterCubit extends Cubit<CharacterState> {
     }).toList();
 
     emit(CharacterLoaded(updatedCharacters));
-    // getFavoritesUsecase.call();
   }
 }

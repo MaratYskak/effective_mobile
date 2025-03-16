@@ -8,9 +8,6 @@ class CharacterRemoteDataSourceImpl implements CharacterRemoteDataSource {
   Future<List<CharacterModel>> getCharacters() async {
     final response = await http.get(Uri.parse('https://rickandmortyapi.com/api/character'));
     if (response.statusCode == 200) {
-      // final List<dynamic> data = json.decode(response.body);
-      // yield data.map((json) => CharacterModel.fromJson(json)).toList();
-
       final Map<String, dynamic> decodedResponse = json.decode(response.body);
       final List<dynamic> results = decodedResponse['results'];
       return results.map((json) => CharacterModel.fromJson(json)).toList();

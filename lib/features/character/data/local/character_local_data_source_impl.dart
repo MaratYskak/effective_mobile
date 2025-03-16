@@ -41,10 +41,8 @@ class CharacterLocalDataSourceImpl implements CharacterLocalDataSource {
       );
 
       if (existing.isNotEmpty) {
-        print('Если запись уже есть, сохраняем старое значение favorite');
         // Если запись уже есть, сохраняем старое значение favorite
         final bool existingFavorite = existing.first['favorite'] == 1;
-        print(existingFavorite);
 
         final updatedCharacter = characterModel.copyWith(favorite: existingFavorite);
 
@@ -69,8 +67,6 @@ class CharacterLocalDataSourceImpl implements CharacterLocalDataSource {
 
   @override
   Future<void> toggleFavorite(int characterId, bool isFavorite) async {
-    print('isFavorite in method');
-    print(isFavorite);
     final batch = db.batch();
     batch.update(
       'characters',

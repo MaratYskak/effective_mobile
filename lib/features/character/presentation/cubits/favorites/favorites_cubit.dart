@@ -41,7 +41,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         emit(FavoritesEmpty());
       }
     } catch (e) {
-      print('Failed to load characters: $e');
       emit(FavoritesError('Failed to load characters: $e'));
     }
   }
